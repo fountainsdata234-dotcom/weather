@@ -1,0 +1,371 @@
+:root {
+  --neon-cyan: #00f3ff;
+  --neon-pink: #ff0055;
+  --deep-space: #050508;
+  --glass-panel: rgba(10, 15, 30, 0.6);
+  --border-glow: 1px solid rgba(0, 243, 255, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Rajdhani", sans-serif;
+  background-color: var(--deep-space);
+  color: #e0e0e0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* --- BACKGROUND EFFECTS --- */
+/* 1. Stars */
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(1px 1px at 10% 10%, white, transparent),
+    radial-gradient(1px 1px at 20% 20%, white, transparent),
+    radial-gradient(2px 2px at 30% 30%, #ffffff, transparent),
+    radial-gradient(1px 1px at 40% 40%, white, transparent),
+    radial-gradient(2px 2px at 50% 50%, #ffffff, transparent);
+  background-size: 550px 550px;
+  z-index: -3;
+  animation: starMove 100s linear infinite;
+}
+
+/* 2. The Planet (CSS Only) */
+.planet {
+  position: fixed;
+  bottom: -20vh;
+  right: -20vw;
+  width: 80vh;
+  height: 80vh;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #4facfe, #00f2fe, #000);
+  box-shadow: inset -50px -50px 100px #000, 0 0 50px rgba(0, 243, 255, 0.3);
+  z-index: -2;
+  opacity: 0.8;
+  animation: planetRotate 200s linear infinite;
+}
+
+/* 3. Grid Overlay */
+.grid-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: -1;
+  perspective: 1000px;
+  transform: perspective(500px) rotateX(10deg);
+}
+
+@keyframes starMove {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-2000px);
+  }
+}
+@keyframes planetRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- LAYOUT --- */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
+  z-index: 10;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.brand {
+  font-family: "Orbitron";
+  font-size: 1.8rem;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.6);
+  letter-spacing: 2px;
+}
+
+.search-box {
+  display: flex;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
+
+input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--neon-cyan);
+  color: #fff;
+  padding: 10px 15px;
+  font-family: "Orbitron";
+  outline: none;
+  clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
+}
+
+button {
+  background: var(--neon-cyan);
+  border: none;
+  padding: 0 20px;
+  cursor: pointer;
+  font-weight: bold;
+  clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+  margin-left: -15px;
+  transition: 0.3s;
+}
+button:hover {
+  background: #fff;
+  box-shadow: 0 0 15px #fff;
+}
+
+/* --- DASHBOARD --- */
+.dashboard {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 25px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+/* Panels */
+.panel {
+  background: var(--glass-panel);
+  backdrop-filter: blur(12px);
+  border: var(--border-glow);
+  padding: 25px;
+  position: relative;
+  clip-path: polygon(
+    20px 0,
+    100% 0,
+    100% calc(100% - 20px),
+    calc(100% - 20px) 100%,
+    0 100%,
+    0 20px
+  );
+}
+
+/* Decorative glowing lines on panels */
+.panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--neon-cyan),
+    transparent
+  );
+}
+
+/* Main Info (Left) */
+.main-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.loc-title {
+  font-family: "Orbitron";
+  font-size: 2.2rem;
+  margin-bottom: 5px;
+}
+.loc-time {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 5px;
+}
+.loc-coords {
+  font-family: monospace;
+  color: var(--neon-pink);
+  letter-spacing: 1px;
+}
+
+.temp-wrapper {
+  text-align: right;
+}
+.temp-val {
+  font-family: "Orbitron";
+  font-size: 4rem;
+  font-weight: bold;
+  text-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+}
+.weather-text {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+  letter-spacing: 2px;
+}
+.weather-icon {
+  width: 90px;
+  filter: drop-shadow(0 0 8px var(--neon-cyan));
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 Columns */
+  gap: 10px;
+  margin-top: 20px;
+}
+.stat-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+}
+.stat-item i {
+  color: var(--neon-cyan);
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+}
+.stat-name {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  display: block;
+}
+.stat-num {
+  font-family: "Orbitron";
+  font-size: 0.9rem;
+  margin-top: 3px;
+  display: block;
+}
+
+/* Forecast (Right) */
+.forecast-title {
+  font-family: "Orbitron";
+  color: var(--neon-pink);
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 0, 85, 0.3);
+  padding-bottom: 5px;
+}
+
+.forecast-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.f-day {
+  font-weight: bold;
+  width: 40px;
+}
+.f-icon {
+  width: 35px;
+}
+.f-temps {
+  font-family: "Orbitron";
+  font-size: 1rem;
+}
+.f-rain {
+  font-size: 0.8rem;
+  color: var(--neon-cyan);
+  width: 60px;
+  text-align: right;
+}
+
+/* --- LOADER --- */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: #020205;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: opacity 0.5s;
+}
+.holo-spinner {
+  width: 80px;
+  height: 80px;
+  border: 2px solid var(--neon-cyan);
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 15px var(--neon-cyan);
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .main-info {
+    flex-direction: column;
+    text-align: center;
+  }
+  .temp-wrapper {
+    text-align: center;
+    margin-top: 15px;
+  }
+  .planet {
+    opacity: 0.4;
+  }
+}
+@media (max-width: 450px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .brand {
+    font-size: 1.4rem;
+  }
+  .search-box {
+    max-width: 100%;
+  }
+}

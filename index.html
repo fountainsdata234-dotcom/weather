@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO & Meta -->
+    <meta
+      name="description"
+      content="Nexus Galactic Weather - Real-time holographic weather interface. Monitor local forecasts, UV index, and atmospheric pressure."
+    />
+    <meta
+      name="keywords"
+      content="weather app, sci-fi ui, futuristic weather, nigeria weather, forecast, weather api, galactic interface"
+    />
+    <meta name="author" content="Nexus Systems" />
+    <meta name="theme-color" content="#00f3ff" />
+
+    <title>NEXUS | Planetary Weather Uplink</title>
+
+    <!-- Sci-Fi Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Galactic Backgrounds -->
+    <div class="stars"></div>
+    <div class="planet"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- Loading Screen -->
+    <div id="loader">
+      <div class="holo-spinner"></div>
+      <div
+        style="
+          margin-top: 20px;
+          font-family: 'Orbitron';
+          letter-spacing: 2px;
+          color: var(--neon-cyan);
+        "
+      >
+        INITIALIZING SENSORS...
+      </div>
+    </div>
+
+    <div class="container">
+      <header>
+        <div class="brand">
+          <i class="fa-solid fa-satellite-dish"></i> NEXUS HUD
+        </div>
+        <div class="search-box">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="ENTER SECTOR (CITY)..."
+          />
+          <button id="searchBtn">SCAN</button>
+        </div>
+      </header>
+
+      <main class="dashboard" id="dash">
+        <!-- Left Panel: Current Weather -->
+        <div style="display: flex; flex-direction: column; gap: 20px">
+          <div class="panel">
+            <div class="main-info">
+              <div>
+                <div class="loc-title" id="city">--</div>
+                <div class="loc-time" id="time">--</div>
+                <div class="loc-coords" id="coords">LAT: -- | LON: --</div>
+              </div>
+              <div class="temp-wrapper">
+                <img id="icon" class="weather-icon" src="" alt="weather" />
+                <div class="temp-val"><span id="temp">0</span>°</div>
+                <div class="weather-text" id="condition">--</div>
+              </div>
+            </div>
+
+            <!-- 5 Stats Area -->
+            <div class="stats-grid">
+              <div class="stat-item">
+                <i class="fa-solid fa-wind"></i>
+                <span class="stat-name">WIND</span>
+                <span class="stat-num" id="wind">--</span>
+              </div>
+              <div class="stat-item">
+                <i class="fa-solid fa-droplet"></i>
+                <span class="stat-name">HUMIDITY</span>
+                <span class="stat-num" id="humidity">--</span>
+              </div>
+              <div class="stat-item">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span class="stat-name">PRESSURE</span>
+                <span class="stat-num" id="pressure">--</span>
+              </div>
+              <div class="stat-item">
+                <i class="fa-regular fa-eye"></i>
+                <span class="stat-name">VISIBILITY</span>
+                <span class="stat-num" id="visibility">--</span>
+              </div>
+              <div class="stat-item">
+                <i class="fa-regular fa-sun"></i>
+                <span class="stat-name">UV INDEX</span>
+                <span class="stat-num" id="uv">--</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Panel: Forecast -->
+        <div class="panel">
+          <h3 class="forecast-title">5-SOLAR CYCLE FORECAST</h3>
+          <div id="forecastList">
+            <!-- Forecast items injected here -->
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
